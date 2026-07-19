@@ -1,0 +1,7 @@
+git_portable/
+__pycache__/
+*.pyc
+.git/
+.gitignore
+Dockerfile
+.dockerignore
