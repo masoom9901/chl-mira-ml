@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriSense: Remote Crop Health & Yield Analytics</title>
+    <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌱</text></svg>">
+    
+    <!-- Premium Typography and Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Chart.js for data visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Link custom styles -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Controls -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fa-solid fa-satellite-dish pulse-icon"></i>
+                <h2>AgriSense</h2>
+            </div>
+            
+            <div class="sidebar-section">
+                <h3><i class="fa-solid fa-gears"></i> Sensor Configuration</h3>
+                <div class="form-group">
+                    <label for="satellite-type">Satellite</label>
+                    <select id="satellite-type">
+                        <option value="RESOURCESAT-2">RESOURCESAT-2</option>
+                        <option value="RESOURCESAT-2A">RESOURCESAT-2A</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="sensor-type">Sensor Type</label>
+                    <select id="sensor-type">
+                        <option value="LISS-3 (24m Res, 4 Bands)">LISS-3 (24m Res, 4 Bands)</option>
+                        <option value="LISS-4 (5.8m Res, 3 Bands)">LISS-4 (5.8m Res, 3 Bands)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h3><i class="fa-solid fa-palette"></i> Appearance Settings</h3>
+                <div class="theme-switch-container">
+                    <button id="theme-dark" class="theme-btn active"><i class="fa-solid fa-moon"></i> Dark Mode</button>
+                    <button id="theme-light" class="theme-btn"><i class="fa-solid fa-sun"></i> Light Mode</button>
+                </div>
+            </div>
+
+            <div class="sidebar-footer">
+                <p>Status: <span id="connection-status" class="status-online"><i class="fa-solid fa-circle"></i> Connected</span></p>
+            </div>
+        </aside>
+
+        <!-- Main Body -->
+        <main class="main-content">
+            <!-- Header Banner -->
+            <header class="header-banner">
+                <h1>AgriSense Platform</h1>
+                <p>Crop Health Monitoring & Yield Prediction using LISS-3/LISS-4 Remote Sensing & Machine Learning</p>
+            </header>
+
+            <!-- Navigation Tabs -->
+            <nav class="nav-tabs">
+                <button class="tab-btn active" data-tab="tab-overview"><i class="fa-solid fa-chart-line"></i> Dashboard</button>
+                <button class="tab-btn" data-tab="tab-acquisition"><i class="fa-solid fa-download"></i> Acquisition</button>
+                <button class="tab-btn" data-tab="tab-preprocessing"><i class="fa-solid fa-sliders"></i> Preprocessing</button>
+                <button class="tab-btn" data-tab="tab-annotation"><i class="fa-solid fa-tags"></i> Annotation & Augment</button>
+                <button class="tab-btn" data-tab="tab-training"><i class="fa-solid fa-brain"></i> Model Training</button>
+                <button class="tab-btn" data-tab="tab-inference"><i class="fa-solid fa-crop-simple"></i> Yield Prediction</button>
+            </nav>
+
+            <!-- Tab Contents -->
+            <div class="tab-content-container">
+                
+                <!-- TAB 0: OVERVIEW DASHBOARD -->
+                <section id="tab-overview" class="tab-panel active">
+                    <h3><i class="fa-solid fa-gauge-high"></i> Region & Analytics Overview</h3>
+                    
+                    <!-- Pipeline Status Tracker -->
+                    <div class="pipeline-tracker glass-card">
+                        <h4>Pipeline Execution Status</h4>
+                        <div class="tracker-steps">
+                            <div class="tracker-step" id="step-ingestion">
+                                <span class="step-num">1</span>
+                                <span class="step-name">Ingestion</span>
+                                <span class="step-status status-pending">Pending</span>
+                            </div>
+                            <div class="tracker-step" id="step-preprocess">
+                                <span class="step-num">2</span>
+                                <span class="step-name">Preprocessing</span>
+                                <span class="step-status status-pending">Pending</span>
+                            </div>
+                            <div class="tracker-step" id="step-annotation">
+                                <span class="step-num">3</span>
+                                <span class="step-name">Annotation</span>
+                                <span class="step-status status-pending">Pending</span>
+                            </div>
+                            <div class="tracker-step" id="step-augmentation">
+                                <span class="step-num">4</span>
+                                <span class="step-name">Augmentation</span>
+                                <span class="step-status status-pending">Pending</span>
+                            </div>
+                            <div class="tracker-step" id="step-training">
+                                <span class="step-num">5</span>
+                                <span class="step-name">Training</span>
+                                <span class="step-status status-pending">Pending</span>
+                            </div>
+                            <div class="tracker-step" id="step-predictions">
+                                <span class="step-num">6</span>
+                                <span class="step-name">Predictions</span>
+                                <span class="step-status status-pending">Pending</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-grid">
+                        <!-- Scene FCC Preview -->
+                        <div class="glass-card flex-col">
+                            <h4>🛰️ Active Satellite Analysis Scene</h4>
+                            <div class="image-preview-container" id="overview-preview-container">
+                                <p class="placeholder-text">No active satellite scene loaded. Displaying default regional workspace preview (Guntur Region).</p>
+                                <div class="simulated-map" id="simulated-map-element">
+                                    <div class="crop-field healthy" style="top:10%; left:10%; width:30%; height:30%"></div>
+                                    <div class="crop-field stressed" style="top:50%; left:15%; width:25%; height:35%"></div>
+                                    <div class="crop-field soil" style="top:10%; left:50%; width:40%; height:25%"></div>
+                                    <div class="water-canal"></div>
+                                </div>
+                                <img id="overview-scene-image" class="hidden" src="" alt="FCC Preview">
+                            </div>
+                        </div>
+
+                        <!-- Statistics -->
+                        <div class="glass-card flex-col">
+                            <h4>📊 Crop Yield & Health Statistics</h4>
+                            <div class="metrics-row" id="overview-metrics-row">
+                                <div class="metric-box">
+                                    <div class="metric-val" id="metric-fields-val">16</div>
+                                    <div class="metric-lbl">Default Fields</div>
+                                </div>
+                                <div class="metric-box">
+                                    <div class="metric-val" id="metric-area-val">104.5 ha</div>
+                                    <div class="metric-lbl">Avg Area</div>
+                                </div>
+                                <div class="metric-box">
+                                    <div class="metric-val" id="metric-yield-val">4.5 t/ha</div>
+                                    <div class="metric-lbl">Average Yield</div>
+                                </div>
+                            </div>
+                            
+                            <div class="chart-container">
+                                <canvas id="overview-chart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- TAB 1: ACQUISITION -->
+                <section id="tab-acquisition" class="tab-panel">
+                    <h3><i class="fa-solid fa-earth-americas"></i> Acquire LULC Satellite Imagery</h3>
+                    <div class="dashboard-grid">
+                        <div class="glass-card flex-col">
+                            <h4>Bhoonidhi STAC Portal Query</h4>
+                            <div class="form-group">
+                                <label for="aoi-select">Area of Interest (AOI)</label>
+                                <select id="aoi-select">
+                                    <option value="Guntur">Guntur (Andhra Pradesh, India)</option>
+                                    <option value="Hyderabad">Hyderabad Agriland (Telangana, India)</option>
+                                    <option value="Bathinda">Bathinda Croplands (Punjab, India)</option>
+                                    <option value="Nashik">Nashik Vineyards (Maharashtra, India)</option>
+                                </select>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col">
+                                    <label for="start-date">Start Date</label>
+                                    <input type="date" id="start-date" value="2026-01-01">
+                                </div>
+                                <div class="col">
+                                    <label for="end-date">End Date</label>
+                                    <input type="date" id="end-date" value="2026-03-31">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="cloud-slider">Max Cloud Cover (<span id="cloud-val">15</span>%)</label>
+                                <input type="range" id="cloud-slider" min="0" max="100" value="15">
+                            </div>
+                            
+                            <div class="info-alert">
+                                <i class="fa-solid fa-circle-info"></i>
+                                <p>Bhoonidhi STAC search is initialized with public indices. Request credentials for raw full-scene downloads.</p>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="bhoonidhi-username">Bhoonidhi Username</label>
+                                <input type="text" id="bhoonidhi-username" placeholder="Enter NRSC username">
+                            </div>
+                            <div class="form-group">
+                                <label for="bhoonidhi-password">Bhoonidhi Password</label>
+                                <input type="password" id="bhoonidhi-password" placeholder="Enter NRSC password">
+                            </div>
+                            
+                            <button id="btn-catalog-search" class="btn btn-primary"><i class="fa-solid fa-magnifying-glass"></i> Search Bhoonidhi Catalog</button>
+                        </div>
+
+                        <div class="glass-card flex-col">
+                            <h4>Catalog Search Results</h4>
+                            <div id="catalog-results-container" class="scrollable-container">
+                                <p class="info-text">Please run a catalog query to search satellite databases, or instantly load a sample dataset below.</p>
+                            </div>
+                            
+                            <div class="quick-load-section">
+                                <h5>Or instantly load standard sample dataset:</h5>
+                                <div class="btn-group">
+                                    <button id="btn-load-liss3" class="btn btn-secondary"><i class="fa-solid fa-image"></i> Load Sample LISS-3 (4 Bands)</button>
+                                    <button id="btn-load-liss4" class="btn btn-secondary"><i class="fa-solid fa-image"></i> Load Sample LISS-4 (3 Bands)</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- TAB 2: PREPROCESSING -->
+                <section id="tab-preprocessing" class="tab-panel">
+                    <h3><i class="fa-solid fa-wand-magic-sparkles"></i> Image Enhancements & Artifact Removal</h3>
+                    <div class="dashboard-grid">
+                        <div class="glass-card flex-col">
+                            <h4>Enhancement Parameters</h4>
+                            <div class="form-group checkbox-group">
+                                <input type="checkbox" id="apply-clahe" checked>
+                                <label for="apply-clahe">Apply Adaptive CLAHE (Contrast Enhancement)</label>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="filter-select">Artifact Denoising Filter</label>
+                                <select id="filter-select">
+                                    <option value="Bilateral Filter (Edge Preserving)">Bilateral Filter (Edge Preserving)</option>
+                                    <option value="Gaussian Filter (Blur)">Gaussian Filter (Blur)</option>
+                                    <option value="None">None</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Spectral Layer Map</label>
+                                <div class="radio-group">
+                                    <input type="radio" name="display-mode" id="mode-fcc" value="False Color Composite (FCC: NIR-Red-Green)" checked>
+                                    <label for="mode-fcc">False Color Composite (FCC: NIR-Red-Green)</label>
+                                    
+                                    <input type="radio" name="display-mode" id="mode-ndvi" value="NDVI Map (Normalized Difference Vegetation Index)">
+                                    <label for="mode-ndvi">NDVI Map (Normalized Difference Vegetation Index)</label>
+                                    
+                                    <input type="radio" name="display-mode" id="mode-ndwi" value="NDWI Map (Normalized Difference Water Index)">
+                                    <label for="mode-ndwi">NDWI Map (Normalized Difference Water Index)</label>
+                                    
+                                    <input type="radio" name="display-mode" id="mode-band" value="Individual Band (Gray Scale)">
+                                    <label for="mode-band">Individual Band (Gray Scale)</label>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group id-band-select hidden" id="band-select-container">
+                                <label for="band-select">Select Band</label>
+                                <select id="band-select">
+                                    <option value="Green">Green</option>
+                                    <option value="Red">Red</option>
+                                    <option value="NIR">NIR</option>
+                                    <option value="SWIR">SWIR (LISS-3 only)</option>
+                                </select>
+                            </div>
+
+                            <button id="btn-preprocess" class="btn btn-primary"><i class="fa-solid fa-play"></i> Apply Preprocessing</button>
+                        </div>
+
+                        <div class="glass-card flex-col items-center">
+                            <h4>Preview Panel</h4>
+                            <div class="image-preview-container">
+                                <div id="preprocess-loader" class="loader hidden"></div>
+                                <img id="preprocess-img" class="full-img" src="" alt="Preprocessed Map">
+                                <p class="image-caption" id="preprocess-caption">Click 'Apply Preprocessing' to render spectral maps.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- TAB 3: ANNOTATIONS & AUGMENTATION -->
+                <section id="tab-annotation" class="tab-panel">
+                    <h3><i class="fa-solid fa-layer-group"></i> Demarcations, Augmentations & Synthesizers</h3>
+                    
+                    <!-- Sub-tabs navigation -->
+                    <div class="sub-tabs">
+                        <button class="sub-tab-btn active" data-subtab="subtab-via"><i class="fa-solid fa-pen-ruler"></i> VIA Demarcation</button>
+                        <button class="sub-tab-btn" data-subtab="subtab-augment"><i class="fa-solid fa-square-plus"></i> Augmentation</button>
+                        <button class="sub-tab-btn" data-subtab="subtab-synth"><i class="fa-solid fa-wand-magic"></i> Generative AI Synthesis</button>
+                    </div>
+
+                    <!-- Subtab 3.1: VIA Parsing -->
+                    <div id="subtab-via" class="sub-tab-panel active">
+                        <div class="dashboard-grid">
+                            <div class="glass-card flex-col">
+                                <h4>Load VGG Annotator Data</h4>
+                                <p class="info-text">Demarcate boundaries (polygons) around crop fields using VIA. Export annotations as JSON and load them here.</p>
+                                
+                                <button id="btn-generate-via" class="btn btn-secondary"><i class="fa-solid fa-dice"></i> Generate Simulated VIA Annotations</button>
+                                
+                                <div class="or-separator"><span>OR</span></div>
+                                
+                                <div class="form-group file-upload-group">
+                                    <label class="file-upload-label" for="via-file-upload">
+                                        <i class="fa-solid fa-file-arrow-up"></i>
+                                        <span>Upload VIA Annotations (JSON)</span>
+                                    </label>
+                                    <input type="file" id="via-file-upload" accept=".json">
+                                </div>
+                                <span id="file-upload-name" class="file-name-text"></span>
+                            </div>
+
+                            <div class="glass-card flex-col items-center">
+                                <h4>Demarcated Visualizer</h4>
+                                <div class="image-preview-container">
+                                    <div id="via-loader" class="loader hidden"></div>
+                                    <img id="via-img" class="full-img" src="" alt="Demarcation overlay">
+                                    <p class="image-caption" id="via-caption">Upload annotations or click generate to preview crop boundaries.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Subtab 3.2: Coordinated Augmentations -->
+                    <div id="subtab-augment" class="sub-tab-panel">
+                        <div class="dashboard-grid">
+                            <div class="glass-card flex-col">
+                                <h4>Augment Image and Mask Simultaneously</h4>
+                                <p class="info-text">Apply coordinate-aligned spatial and radiometric transformations to train models on diverse conditions.</p>
+                                
+                                <div class="form-group checkbox-group">
+                                    <input type="checkbox" id="aug-rot" checked>
+                                    <label for="aug-rot">Random 90 degree Rotations</label>
+                                </div>
+                                <div class="form-group checkbox-group">
+                                    <input type="checkbox" id="aug-flip" checked>
+                                    <label for="aug-flip">Flips (Horizontal & Vertical)</label>
+                                </div>
+                                <div class="form-group checkbox-group">
+                                    <input type="checkbox" id="aug-noise" checked>
+                                    <label for="aug-noise">Radiometric Sensor Noise</label>
+                                </div>
+                                
+                                <button id="btn-run-augment" class="btn btn-primary"><i class="fa-solid fa-play"></i> Generate Augmented Sample</button>
+                            </div>
+
+                            <div class="glass-card flex-col">
+                                <h4>Augmented Coordinated Outputs</h4>
+                                <div class="augmented-previews">
+                                    <div class="aug-preview-box">
+                                        <h5>Image (FCC)</h5>
+                                        <div class="image-preview-container-sm">
+                                            <img id="aug-img-fcc" class="full-img" src="" alt="Augmented Image">
+                                        </div>
+                                    </div>
+                                    <div class="aug-preview-box">
+                                        <h5>Ground Truth Mask</h5>
+                                        <div class="image-preview-container-sm">
+                                            <img id="aug-img-mask" class="full-img" src="" alt="Augmented Mask">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Subtab 3.3: Generative AI Synthesizer -->
+                    <div id="subtab-synth" class="sub-tab-panel">
+                        <div class="dashboard-grid">
+                            <div class="glass-card flex-col">
+                                <h4>Generative AI Crop Field Synthesizer</h4>
+                                <p class="info-text">Synthesize high-fidelity satellite imagery with matching segmentation masks and labels using the Generative AI simulation engine.</p>
+                                
+                                <div class="form-group">
+                                    <label for="synth-fields">Fields Count (<span id="synth-fields-val">10</span>)</label>
+                                    <input type="range" id="synth-fields" min="5" max="20" value="10">
+                                </div>
+                                <div class="form-group">
+                                    <label for="synth-size">Resolution Size</label>
+                                    <select id="synth-size">
+                                        <option value="256">256 x 256</option>
+                                        <option value="512" selected>512 x 512</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="synth-seed">Random Seed</label>
+                                    <input type="number" id="synth-seed" value="101">
+                                </div>
+                                
+                                <button id="btn-run-synth" class="btn btn-primary"><i class="fa-solid fa-flask"></i> Synthesize Data with Generative AI</button>
+                            </div>
+
+                            <div class="glass-card flex-col">
+                                <h4>Generated ground truth outputs</h4>
+                                <div class="augmented-previews">
+                                    <div class="aug-preview-box">
+                                        <h5>Generated FCC Image</h5>
+                                        <div class="image-preview-container-sm">
+                                            <img id="synth-img-fcc" class="full-img" src="" alt="Synthesized Image">
+                                        </div>
+                                    </div>
+                                    <div class="aug-preview-box">
+                                        <h5>Generated Mask</h5>
+                                        <div class="image-preview-container-sm">
+                                            <img id="synth-img-mask" class="full-img" src="" alt="Synthesized Mask">
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="info-text centered" id="synth-message"></p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- TAB 4: MODEL TRAINING -->
+                <section id="tab-training" class="tab-panel">
+                    <h3><i class="fa-solid fa-brain"></i> Step 5: Model Training Panel</h3>
+                    <div class="dashboard-grid">
+                        <div class="glass-card flex-col">
+                            <h4>Select Model Paradigm</h4>
+                            <div class="form-group">
+                                <label>Training Type</label>
+                                <div class="radio-group">
+                                    <input type="radio" name="train-paradigm" id="paradigm-kmeans" value="Unsupervised (K-Means Spectral Clustering)" checked>
+                                    <label for="paradigm-kmeans">Unsupervised (K-Means Spectral Clustering)</label>
+                                    
+                                    <input type="radio" name="train-paradigm" id="paradigm-supervised" value="Supervised (Mask R-CNN / PyTorch)">
+                                    <label for="paradigm-supervised">Supervised (Mask R-CNN / PyTorch)</label>
+                                    
+                                    <input type="radio" name="train-paradigm" id="paradigm-semi" value="Semi-Supervised (Self-Training / Pseudo-Labeling)">
+                                    <label for="paradigm-semi">Semi-Supervised (Self-Training / Pseudo-Labeling)</label>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="train-epochs">Training Epochs</label>
+                                <input type="range" id="train-epochs" min="1" max="10" value="3">
+                                <span class="val-display" id="train-epochs-val">3</span>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="train-batch">Batch Size</label>
+                                <select id="train-batch">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="4" selected>4</option>
+                                    <option value="8">8</option>
+                                </select>
+                            </div>
+                            
+                            <button id="btn-train" class="btn btn-primary"><i class="fa-solid fa-graduation-cap"></i> Start Model Training</button>
+                        </div>
+
+                        <div class="glass-card flex-col">
+                            <h4>Training Progress & Loss Charts</h4>
+                            <div id="training-loader" class="loader hidden"></div>
+                            
+                            <div class="training-results" id="training-results-panel">
+                                <p class="info-text">Select a model paradigm and click 'Start Model Training' to begin.</p>
+                            </div>
+                            
+                            <div class="chart-container" id="loss-chart-container" style="display:none;">
+                                <canvas id="loss-chart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- TAB 5: INFERENCE & YIELD PREDICTION -->
+                <section id="tab-inference" class="tab-panel">
+                    <h3><i class="fa-solid fa-wheat-awn-circle-exclamation"></i> Crop Field Localizer & Yield Projections</h3>
+                    <div class="dashboard-grid">
+                        <div class="glass-card flex-col">
+                            <h4>Inference Configuration</h4>
+                            <div class="form-group">
+                                <label for="inference-crop-mode">Select Crop Type Mapping</label>
+                                <select id="inference-crop-mode">
+                                    <option value="Varied Crops (Rice, Sugarcane, Cotton)">Varied Crops (Rice, Sugarcane, Cotton)</option>
+                                    <option value="Sugarcane Only">Sugarcane Only</option>
+                                    <option value="Rice Only">Rice Only</option>
+                                </select>
+                            </div>
+                            
+                            <button id="btn-run-inference" class="btn btn-primary"><i class="fa-solid fa-calculator"></i> Run Crop Analysis & Localization</button>
+                        </div>
+
+                        <div class="glass-card flex-col items-center">
+                            <h4>Localized Yield Contour Results</h4>
+                            <div class="image-preview-container">
+                                <div id="inference-loader" class="loader hidden"></div>
+                                <img id="inference-img" class="full-img" src="" alt="Inference overlay">
+                                <p class="image-caption" id="inference-caption">Run Crop Analysis to localized fields and forecast yields.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Yield Predictor Metrics Summary -->
+                    <div class="yield-metrics-container glass-card hidden" id="yield-metrics-container">
+                        <h4>Total Region Summary</h4>
+                        <div class="metrics-row">
+                            <div class="metric-box">
+                                <div class="metric-val" id="inf-fields-count">0</div>
+                                <div class="metric-lbl">Detected Fields</div>
+                            </div>
+                            <div class="metric-box">
+                                <div class="metric-val" id="inf-total-area">0.00 ha</div>
+                                <div class="metric-lbl">Total Cropland Area</div>
+                            </div>
+                            <div class="metric-box">
+                                <div class="metric-val" id="inf-total-yield">0.0 t</div>
+                                <div class="metric-lbl">Predicted Crop Yield</div>
+                            </div>
+                            <div class="metric-box">
+                                <div class="metric-val" id="inf-mean-ndvi">0.000</div>
+                                <div class="metric-lbl">Average NDVI Health Index</div>
+                            </div>
+                        </div>
+
+                        <!-- Data table -->
+                        <h4 style="margin-top: 30px;">Detailed Field Classification Table</h4>
+                        <div class="table-container">
+                            <table id="fields-table">
+                                <thead>
+                                    <tr>
+                                        <th>Field ID</th>
+                                        <th>Area (Hectares)</th>
+                                        <th>NDVI Mean</th>
+                                        <th>Health Status</th>
+                                        <th>Crop Type</th>
+                                        <th>Predicted Yield (Tons)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Populated dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Script file -->
+    <script src="app.js"></script>
+</body>
+</html>
