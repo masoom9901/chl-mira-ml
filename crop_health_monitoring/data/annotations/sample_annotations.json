@@ -1,0 +1,363 @@
+{
+  "_via_settings": {},
+  "_via_img_metadata": {
+    "sample_liss3.tif786432": {
+      "filename": "sample_liss3.tif",
+      "size": 786432,
+      "regions": [
+        {
+          "shape_attributes": {
+            "name": "polygon",
+            "all_points_x": [
+              2,
+              128,
+              126,
+              0
+            ],
+            "all_points_y": [
+              3,
+              2,
+              125,
+              128
+            ]
+          },
+          "region_attributes": {
+            "class": "healthy_crop",
+            "crop_type": "rice"
+          }
+        },
+        {
+          "shape_attributes": {
+            "name": "polygon",
+            "all_points_x": [
+              130,
+              254,
+              254,
+              131
+            ],
+            "all_points_y": [
+              1,
+              2,
+              126,
+              128
+            ]
+          },
+          "region_attributes": {
+            "class": "healthy_crop",
+            "crop_type": "wheat"
+          }
+        },
+        {
+          "shape_attributes": {
+            "name": "polygon",
+            "all_points_x": [
+              259,
+              381,
+              383,
+              257
+            ],
+            "all_points_y": [
+              3,
+              2,
+              128,
+              125
+            ]
+          },
+          "region_attributes": {
+            "class": "healthy_crop",
+            "crop_type": "rice"
+          }
+        },
+        {
+          "shape_attributes": {
+            "name": "polygon",
+            "all_points_x": [
+              387,
+              511,
+              509,
+              384
+            ],
+            "all_points_y": [
+              1,
+              1,
+              125,
+              128
+            ]
+          },
+          "region_attributes": {
+            "class": "healthy_crop",
+            "crop_type": "wheat"
+          }
+        },
+        {
+          "shape_attributes": {
+            "name": "polygon",
+            "all_points_x": [
+              3,
+              127,
+              125,
+              0
+            ],
+            "all_points_y": [
+              129,
+              128,
+              256,
+              254
+            ]
+          },
+          "region_attributes": {
+            "class": "healthy_crop",
+            "crop_type": "wheat"
+          }
+        },
+        {
+          "shape_attributes": {
+            "name": "polygon",
+            "all_points_x": [
+              130,
+              255,
+              253,
+              131
+            ],
+            "all_points_y": [
+              130,
+              131,
+              253,
+              254
+            ]
+          },
+          "region_attributes": {
+            "class": "healthy_crop",
+            "crop_type": "rice"
+          }
+        },
+        {
+          "shape_attributes": {
+            "name": "polygon",
+            "all_points_x": [
+              257,
+              382,
+              382,
+              258
+            ],
+            "all_points_y": [
+              129,
+              129,
+              253,
+              253
+            ]
+          },
+          "region_attributes": {
+            "class": "healthy_crop",
+            "crop_type": "wheat"
+          }
+        },
+        {
+          "shape_attributes": {
+            "name": "polygon",
+            "all_points_x": [
+              387,
+              510,
+              510,
+              384
+            ],
+            "all_points_y": [
+              128,
+              128,
+              254,
+              256
+            ]
+          },
+          "region_attributes": {
+            "class": "healthy_crop",
+            "crop_type": "rice"
+          }
+        },
+        {
+          "shape_attributes": {
+            "name": "polygon",
+            "all_points_x": [
+              2,
+              125,
+              125,
+              1
+            ],
+            "all_points_y": [
+              257,
+              256,
+              383,
+              383
+            ]
+          },
+          "region_attributes": {
+            "class": "stressed_crop",
+            "crop_type": "rice"
+          }
+        },
+        {
+          "shape_attributes": {
+            "name": "polygon",
+            "all_points_x": [
+              128,
+              256,
+              253,
+              130
+            ],
+            "all_points_y": [
+              257,
+              257,
+              381,
+              381
+            ]
+          },
+          "region_attributes": {
+            "class": "stressed_crop",
+            "crop_type": "wheat"
+          }
+        },
+        {
+          "shape_attributes": {
+            "name": "polygon",
+            "all_points_x": [
+              258,
+              384,
+              382,
+              257
+            ],
+            "all_points_y": [
+              259,
+              259,
+              382,
+              384
+            ]
+          },
+          "region_attributes": {
+            "class": "stressed_crop",
+            "crop_type": "rice"
+          }
+        },
+        {
+          "shape_attributes": {
+            "name": "polygon",
+            "all_points_x": [
+              387,
+              509,
+              511,
+              385
+            ],
+            "all_points_y": [
+              257,
+              259,
+              383,
+              383
+            ]
+          },
+          "region_attributes": {
+            "class": "stressed_crop",
+            "crop_type": "wheat"
+          }
+        },
+        {
+          "shape_attributes": {
+            "name": "polygon",
+            "all_points_x": [
+              1,
+              127,
+              126,
+              1
+            ],
+            "all_points_y": [
+              387,
+              384,
+              511,
+              509
+            ]
+          },
+          "region_attributes": {
+            "class": "bare_soil",
+            "crop_type": "wheat"
+          }
+        },
+        {
+          "shape_attributes": {
+            "name": "polygon",
+            "all_points_x": [
+              129,
+              255,
+              255,
+              131
+            ],
+            "all_points_y": [
+              385,
+              387,
+              510,
+              510
+            ]
+          },
+          "region_attributes": {
+            "class": "bare_soil",
+            "crop_type": "rice"
+          }
+        },
+        {
+          "shape_attributes": {
+            "name": "polygon",
+            "all_points_x": [
+              259,
+              382,
+              384,
+              259
+            ],
+            "all_points_y": [
+              385,
+              387,
+              511,
+              512
+            ]
+          },
+          "region_attributes": {
+            "class": "bare_soil",
+            "crop_type": "wheat"
+          }
+        },
+        {
+          "shape_attributes": {
+            "name": "polygon",
+            "all_points_x": [
+              387,
+              511,
+              512,
+              385
+            ],
+            "all_points_y": [
+              384,
+              386,
+              509,
+              512
+            ]
+          },
+          "region_attributes": {
+            "class": "bare_soil",
+            "crop_type": "rice"
+          }
+        }
+      ],
+      "file_attributes": {}
+    }
+  },
+  "_via_attributes": {
+    "region": {
+      "class": {
+        "type": "dropdown",
+        "description": "Health classification",
+        "options": {
+          "healthy_crop": "Healthy Crop",
+          "stressed_crop": "Stressed Crop",
+          "bare_soil": "Bare Soil"
+        },
+        "default_value": "healthy_crop"
+      }
+    },
+    "file": {}
+  }
+}

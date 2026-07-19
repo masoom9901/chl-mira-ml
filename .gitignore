@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+.streamlit/
+.ipynb_checkpoints/
+data/sample_*.tif
+data/synthetic/
+models/*
+!models/.gitkeep
+git_portable/

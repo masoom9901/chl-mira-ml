@@ -1,0 +1,368 @@
+{
+  "_via_settings": {},
+  "_via_img_metadata": {
+    "gen_scene_100.tif786432": {
+      "filename": "gen_scene_100.tif",
+      "size": 786432,
+      "regions": [
+        {
+          "shape_attributes": {
+            "name": "polygon",
+            "all_points_x": [
+              0,
+              0,
+              46
+            ],
+            "all_points_y": [
+              214,
+              291,
+              264
+            ]
+          },
+          "region_attributes": {
+            "class": "bare_soil",
+            "crop_type": "sugarcane"
+          }
+        },
+        {
+          "shape_attributes": {
+            "name": "polygon",
+            "all_points_x": [
+              367,
+              272,
+              278,
+              375,
+              404
+            ],
+            "all_points_y": [
+              238,
+              257,
+              418,
+              384,
+              291
+            ]
+          },
+          "region_attributes": {
+            "class": "bare_soil",
+            "crop_type": "cotton"
+          }
+        },
+        {
+          "shape_attributes": {
+            "name": "polygon",
+            "all_points_x": [
+              304,
+              390,
+              465,
+              336
+            ],
+            "all_points_y": [
+              103,
+              188,
+              116,
+              61
+            ]
+          },
+          "region_attributes": {
+            "class": "healthy_crop",
+            "crop_type": "maize"
+          }
+        },
+        {
+          "shape_attributes": {
+            "name": "polygon",
+            "all_points_x": [
+              405,
+              376,
+              408,
+              511,
+              511
+            ],
+            "all_points_y": [
+              292,
+              385,
+              448,
+              477,
+              337
+            ]
+          },
+          "region_attributes": {
+            "class": "bare_soil",
+            "crop_type": "sugarcane"
+          }
+        },
+        {
+          "shape_attributes": {
+            "name": "polygon",
+            "all_points_x": [
+              376,
+              279,
+              223,
+              318,
+              404
+            ],
+            "all_points_y": [
+              386,
+              418,
+              511,
+              511,
+              451
+            ]
+          },
+          "region_attributes": {
+            "class": "healthy_crop",
+            "crop_type": "cotton"
+          }
+        },
+        {
+          "shape_attributes": {
+            "name": "polygon",
+            "all_points_x": [
+              328,
+              337,
+              466,
+              511,
+              511
+            ],
+            "all_points_y": [
+              0,
+              61,
+              115,
+              81,
+              0
+            ]
+          },
+          "region_attributes": {
+            "class": "stressed_crop",
+            "crop_type": "maize"
+          }
+        },
+        {
+          "shape_attributes": {
+            "name": "polygon",
+            "all_points_x": [
+              0,
+              0,
+              96,
+              144,
+              193,
+              179
+            ],
+            "all_points_y": [
+              106,
+              213,
+              303,
+              297,
+              240,
+              201
+            ]
+          },
+          "region_attributes": {
+            "class": "bare_soil",
+            "crop_type": "sugarcane"
+          }
+        },
+        {
+          "shape_attributes": {
+            "name": "polygon",
+            "all_points_x": [
+              47,
+              0,
+              0,
+              94
+            ],
+            "all_points_y": [
+              264,
+              292,
+              375,
+              305
+            ]
+          },
+          "region_attributes": {
+            "class": "bare_soil",
+            "crop_type": "cotton"
+          }
+        },
+        {
+          "shape_attributes": {
+            "name": "polygon",
+            "all_points_x": [
+              511,
+              390,
+              368,
+              406,
+              511
+            ],
+            "all_points_y": [
+              82,
+              189,
+              238,
+              292,
+              336
+            ]
+          },
+          "region_attributes": {
+            "class": "healthy_crop",
+            "crop_type": "maize"
+          }
+        },
+        {
+          "shape_attributes": {
+            "name": "polygon",
+            "all_points_x": [
+              225,
+              180,
+              194,
+              271,
+              368,
+              389,
+              303
+            ],
+            "all_points_y": [
+              71,
+              200,
+              238,
+              257,
+              237,
+              188,
+              103
+            ]
+          },
+          "region_attributes": {
+            "class": "healthy_crop",
+            "crop_type": "sugarcane"
+          }
+        },
+        {
+          "shape_attributes": {
+            "name": "polygon",
+            "all_points_x": [
+              194,
+              145,
+              180,
+              222,
+              277,
+              270
+            ],
+            "all_points_y": [
+              239,
+              300,
+              511,
+              511,
+              419,
+              257
+            ]
+          },
+          "region_attributes": {
+            "class": "healthy_crop",
+            "crop_type": "cotton"
+          }
+        },
+        {
+          "shape_attributes": {
+            "name": "polygon",
+            "all_points_x": [
+              212,
+              226,
+              304,
+              335,
+              327
+            ],
+            "all_points_y": [
+              0,
+              70,
+              101,
+              61,
+              0
+            ]
+          },
+          "region_attributes": {
+            "class": "healthy_crop",
+            "crop_type": "maize"
+          }
+        },
+        {
+          "shape_attributes": {
+            "name": "polygon",
+            "all_points_x": [
+              319,
+              511,
+              511,
+              407
+            ],
+            "all_points_y": [
+              511,
+              511,
+              478,
+              449
+            ]
+          },
+          "region_attributes": {
+            "class": "healthy_crop",
+            "crop_type": "sugarcane"
+          }
+        },
+        {
+          "shape_attributes": {
+            "name": "polygon",
+            "all_points_x": [
+              0,
+              0,
+              180,
+              225,
+              211
+            ],
+            "all_points_y": [
+              0,
+              105,
+              199,
+              70,
+              0
+            ]
+          },
+          "region_attributes": {
+            "class": "stressed_crop",
+            "crop_type": "cotton"
+          }
+        },
+        {
+          "shape_attributes": {
+            "name": "polygon",
+            "all_points_x": [
+              144,
+              96,
+              1,
+              0,
+              179
+            ],
+            "all_points_y": [
+              298,
+              304,
+              375,
+              511,
+              511
+            ]
+          },
+          "region_attributes": {
+            "class": "healthy_crop",
+            "crop_type": "maize"
+          }
+        }
+      ],
+      "file_attributes": {}
+    }
+  },
+  "_via_attributes": {
+    "region": {
+      "class": {
+        "type": "dropdown",
+        "options": {
+          "healthy_crop": "Healthy Crop",
+          "stressed_crop": "Stressed Crop",
+          "bare_soil": "Bare Soil"
+        },
+        "default_value": "healthy_crop"
+      }
+    }
+  }
+}
